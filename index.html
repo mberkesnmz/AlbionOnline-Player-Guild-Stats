@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albion Search</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="header-logo">
+        <span class="logo-icon">⚔</span>
+        <span class="logo-text">Albion <strong>Search</strong></span>
+      </div>
+    </header>
+
+    <main class="app-main">
+
+      <div class="view-search">
+
+        <!-- Left: search form + results -->
+        <div class="search-left">
+          <h2 class="search-title">Search</h2>
+          <input type="text" id="search-input" class="search-input"
+            placeholder="Name…"
+            onkeydown="if(event.key==='Enter')doSearch()">
+          <div class="search-section-label">Server</div>
+          <div class="search-type-toggle">
+            <button class="type-btn active" onclick="setServer('america',this)">America</button>
+            <button class="type-btn" onclick="setServer('europe',this)">Europe</button>
+            <button class="type-btn" onclick="setServer('asia',this)">Asia</button>
+          </div>
+          <div class="search-section-label">Type</div>
+          <div class="search-type-toggle">
+            <button class="type-btn active" onclick="setSearchType('player',this)">Player</button>
+            <button class="type-btn" onclick="setSearchType('guild',this)">Guild</button>
+          </div>
+          <button class="search-btn" onclick="doSearch()">🔍 Search</button>
+          <div id="search-results"><div class="search-hint-msg">Enter a name to search</div></div>
+        </div>
+
+        <!-- Right: player / guild detail -->
+        <div class="search-right">
+          <div id="player-detail"><div class="search-hint-msg">Select a result to view details</div></div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Kill/Death Event Detail Modal -->
+  <div class="modal-overlay" id="event-modal" onclick="if(event.target.id==='event-modal')closeEventModal()">
+    <div class="modal event-modal-inner">
+      <div class="modal-header">
+        <h3 id="event-modal-title">Event Detail</h3>
+        <button class="modal-close" onclick="closeEventModal()">✕</button>
+      </div>
+      <div id="event-modal-body"></div>
+    </div>
+  </div>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>
