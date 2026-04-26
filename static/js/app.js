@@ -1,8 +1,14 @@
+const CORS_PROXY = 'https://corsproxy.io/?';
+
 const SERVER_BASES = {
   america: 'https://gameinfo.albiononline.com',
   europe:  'https://gameinfo-ams.albiononline.com',
   asia:    'https://gameinfo-sgp.albiononline.com',
 };
+
+function api(url) {
+  return fetch(CORS_PROXY + encodeURIComponent(url)).then(r => r.json());
+}
 
 let _searchType   = 'player';
 let _searchServer = 'america';
@@ -27,8 +33,7 @@ async function doSearch() {
   box.innerHTML = '<div class="search-loading">Searching…</div>';
   try {
     const base = SERVER_BASES[_searchServer];
-    const res  = await fetch(`${base}/api/gameinfo/search?q=${encodeURIComponent(q)}`);
-    const data = await res.json();
+    const data = await api(`${base}/api/gameinfo/search?q=${encodeURIComponent(q)}`);
     renderSearchResults(data);
   } catch(e) {
     box.innerHTML = '<div class="search-error">Search failed. Try again.</div>';
@@ -75,9 +80,9 @@ async function showPlayerDetail(playerId, playerName, cardEl) {
     const base = SERVER_BASES[_searchServer];
     const pid  = encodeURIComponent(playerId);
     const [profile, kills, deaths] = await Promise.all([
-      fetch(`${base}/api/gameinfo/players/${pid}`).then(r => r.json()),
-      fetch(`${base}/api/gameinfo/players/${pid}/kills?limit=10&offset=0`).then(r => r.json()),
-      fetch(`${base}/api/gameinfo/players/${pid}/deaths?limit=10&offset=0`).then(r => r.json()),
+      api(`${base}/api/gameinfo/players/${pid}`),
+      api(`${base}/api/gameinfo/players/${pid}/kills?limit=10&offset=0`),
+      api(`${base}/api/gameinfo/players/${pid}/deaths?limit=10&offset=0`),
     ]);
     _eventsCache = {};
     (kills  ?? []).forEach(ev => { _eventsCache[ev.EventId] = ev; });
@@ -95,7 +100,7 @@ async function showGuildDetail(guildId, guildName, cardEl) {
   box.innerHTML = '<div class="search-loading">⏳ Loading…</div>';
   try {
     const base  = SERVER_BASES[_searchServer];
-    const guild = await fetch(`${base}/api/gameinfo/guilds/${encodeURIComponent(guildId)}`).then(r => r.json());
+    const guild = await api(`${base}/api/gameinfo/guilds/${encodeURIComponent(guildId)}`);
     renderGuildDetail(guild);
   } catch(e) {
     box.innerHTML = '<div class="search-error">Failed to load guild details.</div>';
