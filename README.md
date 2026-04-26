@@ -4,6 +4,11 @@ A web app to search Albion Online players and guilds, view kill/death history an
 
 Built with Python (Flask) as a proxy for the official Albion Online API.
 
+![demo](Screenshot1.png)
+---
+![demo](Screenshot2.png)
+---
+![demo](Screenshot3.png)
 ---
 
 ## Features
