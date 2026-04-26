@@ -4,7 +4,7 @@ A lightweight static web app to search Albion Online players and guilds — with
 
 No backend required. Calls the official Albion Online API directly from the browser.
 
-**Live demo:** [mberkesnmz.github.io/Albion](https://mberkesnmz.github.io/AlbionOnline-Player-Guild-Stats)
+**Live demo:** [mberkesnmz.github.io/AlbionOnline-Player-Guild-Stats](https://mberkesnmz.github.io/AlbionOnline-Player-Guild-Stats)
 
 ---
 
