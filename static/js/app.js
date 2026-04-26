@@ -1,13 +1,13 @@
-const CORS_PROXY = 'https://corsproxy.io/?';
-
 const SERVER_BASES = {
   america: 'https://gameinfo.albiononline.com',
   europe:  'https://gameinfo-ams.albiononline.com',
   asia:    'https://gameinfo-sgp.albiononline.com',
 };
 
-function api(url) {
-  return fetch(CORS_PROXY + encodeURIComponent(url)).then(r => r.json());
+async function api(url) {
+  const res  = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+  const wrap = await res.json();
+  return JSON.parse(wrap.contents);
 }
 
 let _searchType   = 'player';
